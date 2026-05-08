@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contact — Bootleggers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #FFDC82;
+    --gold-deep: #E5BE63;
+    --ink: #0E0E0E;
+    --ink-soft: #1A1A1A;
+    --line: rgba(255,255,255,0.12);
+    --muted: rgba(255,255,255,0.55);
+    --muted-strong: rgba(255,255,255,0.78);
+    --cosmo: #C9748F;
+    --bees: #C79FC1;
+    --serif: 'Gloock', 'Times New Roman', serif;
+    --display: 'Archivo Black', Arial, sans-serif;
+    --sans: 'Archivo', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--ink); color: #fff; font-family: var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: 0; background: transparent; }
+  .wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 56px; }
+
+  /* nav */
+  .nav { position: sticky; top: 0; z-index: 50; background: var(--gold); color: var(--ink); border-bottom: 1px solid rgba(14,14,14,0.06); }
+  .nav-inner { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 32px; padding: 22px 56px; max-width: 1320px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark { width: 44px; height: 44px; background: var(--ink); border-radius: 10px; display: grid; place-items: center; color: var(--gold); }
+  .brand-mark svg { width: 26px; height: 26px; }
+  .brand-name { font-weight: 600; font-size: 22px; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 38px; justify-content: center; font-size: 15px; font-weight: 500; }
+  .nav-links a { opacity: 0.7; transition: opacity .2s; position: relative; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; }
+  .nav-links a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -8px; height: 2px; background: var(--ink); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 52px; padding: 0 28px; font-weight: 600; font-size: 15px; border-radius: 4px; white-space: nowrap; transition: transform .15s, background .15s; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-ink { background: var(--ink); color: #fff; }
+  .btn-gold { background: var(--gold); color: var(--ink); }
+  .btn-gold:hover { background: var(--gold-deep); }
+  .menu-btn { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 4px; }
+  .menu-btn span { width: 22px; height: 2px; background: var(--ink); position: relative; }
+  .menu-btn span::before, .menu-btn span::after { content: ""; position: absolute; left: 0; width: 22px; height: 2px; background: var(--ink); }
+  .menu-btn span::before { top: -7px; } .menu-btn span::after { top: 7px; }
+
+  /* hero */
+  .hero { padding: 120px 0 60px; position: relative; overflow: hidden; }
+  .eyebrow { font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted-strong); font-weight: 500; }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(72px, 9vw, 148px);
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+    margin-top: 24px;
+    text-wrap: balance;
+    max-width: 1100px;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero .lead {
+    margin-top: 36px; max-width: 540px;
+    font-size: 18px; line-height: 1.6; color: var(--muted-strong);
+  }
+
+  .sparks { position: absolute; inset: 0; pointer-events: none; }
+  .sparks span { position: absolute; color: var(--gold); opacity: 0; animation: twinkle 6s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100%{opacity:0;transform:scale(.4) rotate(0)} 50%{opacity:.9;transform:scale(1) rotate(180deg)} }
+
+  /* main grid */
+  .main { padding: 60px 0 140px; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  /* form card */
+  .form-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 52px 56px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .form-card .corner-spark {
+    position: absolute; top: 28px; right: 28px;
+    width: 36px; height: 36px;
+    color: var(--gold);
+    animation: spin 12s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .form-title { font-family: var(--serif); font-size: 40px; line-height: 1; }
+  .form-sub { color: var(--muted-strong); margin-top: 14px; font-size: 15px; line-height: 1.6; max-width: 420px; }
+
+  form { margin-top: 40px; display: flex; flex-direction: column; gap: 22px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .field { position: relative; }
+  .field label {
+    position: absolute; left: 0; top: 14px;
+    font-size: 15px; color: var(--muted);
+    letter-spacing: 0.02em;
+    transition: transform .25s ease, color .25s ease, font-size .25s ease;
+    pointer-events: none;
+    transform-origin: left top;
+  }
+  .field input, .field textarea, .field select {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding: 14px 0 12px;
+    color: #fff;
+    font: inherit;
+    font-size: 16px;
+    outline: none;
+    transition: border-color .3s;
+    appearance: none;
+  }
+  .field textarea { resize: vertical; min-height: 88px; }
+  .field select option { background: var(--ink-soft); color: #fff; }
+  .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--gold); }
+  .field input:focus + label,
+  .field input:not(:placeholder-shown) + label,
+  .field textarea:focus + label,
+  .field textarea:not(:placeholder-shown) + label,
+  .field.filled label,
+  .field.focused label {
+    transform: translateY(-22px) scale(0.78);
+    color: var(--gold);
+  }
+  .field input:placeholder-shown::placeholder,
+  .field textarea:placeholder-shown::placeholder { color: transparent; }
+
+  /* topic chips */
+  .topics { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .topic {
+    height: 36px; padding: 0 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: #fff; font-size: 13px;
+    transition: background .15s, border-color .15s, color .15s, transform .15s;
+  }
+  .topic:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.4); }
+  .topic.active { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+
+  .submit-row { margin-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .submit-row .fine { font-size: 12.5px; color: var(--muted); max-width: 320px; line-height: 1.5; }
+  .submit { background: var(--gold); color: var(--ink); height: 56px; padding: 0 32px; border-radius: 6px; font-weight: 600; font-size: 15px; display: inline-flex; align-items: center; gap: 12px; transition: transform .2s, background .2s; }
+  .submit:hover { background: var(--gold-deep); transform: translateY(-2px); }
+  .submit svg { width: 16px; height: 16px; transition: transform .2s; }
+  .submit:hover svg { transform: translateX(4px); }
+
+  /* success state */
+  .success { display: none; text-align: center; padding: 40px 0 8px; }
+  .form-card.sent .success { display: block; }
+  .form-card.sent form { display: none; }
+  .success .check {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: var(--gold); color: var(--ink);
+    display: grid; place-items: center; margin: 0 auto 24px;
+    animation: pop .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .success h3 { font-family: var(--serif); font-size: 36px; }
+  .success p { color: var(--muted-strong); margin-top: 10px; }
+
+  /* aside (info column) */
+  .aside { padding-top: 12px; }
+  .info-block { padding: 28px 0; border-bottom: 1px solid var(--line); transition: padding .3s; }
+  .info-block:first-child { padding-top: 0; }
+  .info-block:hover { padding-left: 8px; }
+  .info-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .info-value {
+    font-family: var(--serif);
+    font-size: 28px;
+    line-height: 1.15;
+    margin-top: 12px;
+    display: inline-flex; align-items: center; gap: 14px;
+  }
+  .info-value:hover { color: var(--gold); }
+  .info-value svg { width: 16px; height: 16px; opacity: .6; transition: transform .25s, opacity .25s; }
+  .info-value:hover svg { transform: translateX(4px); opacity: 1; }
+  .info-block p { color: var(--muted-strong); font-size: 14.5px; line-height: 1.6; margin-top: 8px; max-width: 380px; }
+
+  /* socials list */
+  .socials-list { display: flex; flex-direction: column; gap: 0; margin-top: 40px; border-top: 1px solid var(--line); }
+  .soc {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 0; border-bottom: 1px solid var(--line);
+    font-family: var(--serif); font-size: 22px;
+    transition: padding .25s, color .25s;
+  }
+  .soc:hover { padding-left: 12px; color: var(--gold); }
+  .soc .arrow {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid var(--line);
+    display: grid; place-items: center;
+    transition: background .25s, border-color .25s, color .25s, transform .25s;
+  }
+  .soc:hover .arrow { background: var(--gold); border-color: var(--gold); color: var(--ink); transform: rotate(-45deg); }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .9s ease, transform .9s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* strip & footer */
+  .strip { background: var(--gold); color: var(--ink); padding: 28px 0; overflow: hidden; }
+  .strip-track { display: flex; gap: 64px; white-space: nowrap; animation: slide-l 30s linear infinite; font-family: var(--serif); font-size: 32px; }
+  .strip-track .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ink); display: inline-block; }
+  @keyframes slide-l { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+  .footer { padding: 80px 0 40px; border-top: 1px solid var(--line); }
+  .footer-top { display: grid; grid-template-columns: 1.1fr 1fr 1fr 1fr; gap: 64px; align-items: start; }
+  .footer-brand { display: flex; align-items: center; gap: 14px; }
+  .footer-brand .brand-mark { width: 56px; height: 56px; }
+  .footer-brand .brand-mark svg { width: 32px; height: 32px; }
+  .footer-brand .brand-name { font-family: var(--display); letter-spacing: 0.04em; font-size: 22px; }
+  .footer-socials { margin-top: 28px; display: flex; gap: 16px; }
+  .footer-socials a { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; transition: background .15s, border-color .15s; color: #fff; }
+  .footer-socials a:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+  .footer-socials svg { width: 18px; height: 18px; }
+  .col h4 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 18px; margin-bottom: 22px; color: var(--muted-strong); }
+  .col ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .col a { font-size: 16px; transition: color .15s; }
+  .col a:hover { color: var(--gold); }
+  .footer-bottom { margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--muted); }
+  .footer-bottom .legal { display: flex; gap: 28px; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="brand-name">Bootleggers</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="events.html">Events</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <a href="#" class="btn btn-ink">Shop now</a>
+    <button class="menu-btn" aria-label="Open menu"><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="sparks" aria-hidden="true">
+    <span style="top:18%;left:8%;font-size:22px;animation-delay:0s;"><svg width="22" height="22" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg></span>
+    <span style="top:32%;right:14%;font-size:14px;animation-delay:1.4s;"><svg width="14" height="14" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg></span>
+    <span style="top:62%;right:8%;font-size:24px;animation-delay:2.8s;"><svg width="24" height="24" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg></span>
+  </div>
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow">Get in touch</span></div>
+    <h1 class="reveal">Pour with us. <em>Anywhere.</em></h1>
+    <p class="lead reveal">Hospitality programs, retail orders, press, partnerships, or just a good story&mdash;drop a note. We answer every message within two business days.</p>
+  </div>
+</section>
+
+<section class="main">
+  <div class="wrap">
+    <div class="grid">
+      <!-- FORM -->
+      <div class="form-card reveal">
+        <span class="corner-spark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg>
+        </span>
+        <h2 class="form-title">Send us a note</h2>
+        <p class="form-sub">Tell us about your venue, event, or just say hello. We'll be back in touch in two business days.</p>
+
+        <form id="contactForm" novalidate>
+          <div class="row2">
+            <div class="field">
+              <input id="fname" type="text" placeholder=" " autocomplete="given-name" required />
+              <label for="fname">First name</label>
+            </div>
+            <div class="field">
+              <input id="lname" type="text" placeholder=" " autocomplete="family-name" required />
+              <label for="lname">Last name</label>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <input id="email" type="email" placeholder=" " autocomplete="email" required />
+              <label for="email">Email</label>
+            </div>
+            <div class="field">
+              <input id="company" type="text" placeholder=" " autocomplete="organization" />
+              <label for="company">Company / venue (optional)</label>
+            </div>
+          </div>
+
+          <div>
+            <span class="info-eyebrow" style="color: var(--muted-strong); display:block; margin-bottom: 12px;">What's it about?</span>
+            <div class="topics" role="radiogroup" aria-label="Topic">
+              <button type="button" class="topic active" data-topic="general">General</button>
+              <button type="button" class="topic" data-topic="hospitality">Hospitality</button>
+              <button type="button" class="topic" data-topic="retail">Retail / wholesale</button>
+              <button type="button" class="topic" data-topic="events">Events &amp; partnerships</button>
+              <button type="button" class="topic" data-topic="press">Press</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <textarea id="message" placeholder=" " rows="3" required></textarea>
+            <label for="message">Tell us a little more</label>
+          </div>
+
+          <div class="submit-row">
+            <p class="fine">By sending this you agree to our privacy policy. We'll never share your email.</p>
+            <button class="submit" type="submit">
+              Send message
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </form>
+
+        <div class="success" role="status" aria-live="polite">
+          <div class="check">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l5 5L20 7"/></svg>
+          </div>
+          <h3>Thanks &mdash; we'll be in touch.</h3>
+          <p>Your note is on its way to the team. Expect a reply within two business days.</p>
+        </div>
+      </div>
+
+      <!-- ASIDE -->
+      <aside class="aside reveal">
+        <div class="info-block">
+          <span class="info-eyebrow">General &amp; press</span>
+          <a href="mailto:hello@bootleggers.co" class="info-value">
+            hello@bootleggers.co
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+          <p>For interviews, partnerships, and the catch-all inbox.</p>
+        </div>
+        <div class="info-block">
+          <span class="info-eyebrow">Hospitality &amp; retail</span>
+          <a href="mailto:trade@bootleggers.co" class="info-value">
+            trade@bootleggers.co
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+          <p>Bar programs, ready-to-pour, private label, and stockist inquiries.</p>
+        </div>
+        <div class="info-block">
+          <span class="info-eyebrow">Studio</span>
+          <span class="info-value">Brooklyn, NY</span>
+          <p>By appointment only &middot; Mon&ndash;Fri, 10am&ndash;6pm ET.</p>
+        </div>
+
+        <div class="socials-list" aria-label="Social channels">
+          <a href="#" class="soc">Instagram <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+          <a href="#" class="soc">TikTok <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+          <a href="#" class="soc">LinkedIn <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <span style="display:inline-flex;align-items:center;gap:64px;">SAY HELLO<span class="dot"></span>POUR WITH US<span class="dot"></span>BOLD &middot; HONEST &middot; UNFORGETTABLE<span class="dot"></span></span>
+    <span style="display:inline-flex;align-items:center;gap:64px;">SAY HELLO<span class="dot"></span>POUR WITH US<span class="dot"></span>BOLD &middot; HONEST &middot; UNFORGETTABLE<span class="dot"></span></span>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <a class="footer-brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z" fill="currentColor"/></svg>
+          </span>
+          <span class="brand-name">BOOTLEGGERS</span>
+        </a>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 3h3l-7 8 8 10h-6l-5-6-5 6H3l7-9-8-9h6l4 5 6-5z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v4H4zM4 10h4v10H4zM10 10h4v1.5c.7-1 2-1.8 3.5-1.8 3 0 3.5 2 3.5 4.5V20h-4v-5c0-1-.3-2-1.5-2S14 14 14 15v5h-4z"/></svg></a>
+        </div>
+      </div>
+      <div class="col"><h4>Explore</h4><ul><li><a href="index.html">Home</a></li><li><a href="products.html">Products</a></li><li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="col"><h4>Drinks</h4><ul><li><a href="#">Cocktails</a></li><li><a href="#">Craft</a></li><li><a href="#">Seasonal</a></li><li><a href="#">Signature</a></li></ul></div>
+      <div class="col"><h4>Events</h4><ul><li><a href="#">Upcoming</a></li><li><a href="#">Past</a></li><li><a href="#">Tickets</a></li><li><a href="#">RSVP</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Bootleggers&reg;. Drink responsibly.</span>
+      <div class="legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // reveal on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // topic chips
+  document.querySelectorAll('.topic').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.topic').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+  }));
+
+  // form submit
+  document.getElementById('contactForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.querySelector('.form-card').classList.add('sent');
+  });
+</script>
+
+</body>
+</html>

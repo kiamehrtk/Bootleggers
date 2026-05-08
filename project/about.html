@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About — Bootleggers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&display=swap" rel="stylesheet">
+<script src="image-slot.js"></script>
+<style>
+  :root {
+    --gold: #FFDC82;
+    --gold-deep: #E5BE63;
+    --ink: #0E0E0E;
+    --ink-soft: #1A1A1A;
+    --line: rgba(255,255,255,0.12);
+    --muted: rgba(255,255,255,0.55);
+    --muted-strong: rgba(255,255,255,0.78);
+    --cosmo: #C9748F;
+    --bees: #C79FC1;
+    --raspberry: #EA9C83;
+    --espresso: #D1A76F;
+    --serif: 'Gloock', 'Times New Roman', serif;
+    --display: 'Archivo Black', Arial, sans-serif;
+    --sans: 'Archivo', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--ink); color: #fff; font-family: var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: 0; background: transparent; }
+  .wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 56px; }
+
+  /* ---------- Nav ---------- */
+  .nav { position: sticky; top: 0; z-index: 50; background: var(--gold); color: var(--ink); border-bottom: 1px solid rgba(14,14,14,0.06); }
+  .nav-inner { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 32px; padding: 22px 56px; max-width: 1320px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark { width: 44px; height: 44px; background: var(--ink); border-radius: 10px; display: grid; place-items: center; color: var(--gold); }
+  .brand-mark svg { width: 26px; height: 26px; }
+  .brand-name { font-weight: 600; font-size: 22px; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 38px; justify-content: center; font-size: 15px; font-weight: 500; }
+  .nav-links a { opacity: 0.7; transition: opacity .2s; position: relative; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; }
+  .nav-links a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -8px; height: 2px; background: var(--ink); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 52px; padding: 0 28px; font-weight: 600; font-size: 15px; border-radius: 4px; white-space: nowrap; transition: transform .15s, background .15s; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-ink { background: var(--ink); color: #fff; }
+  .btn-gold { background: var(--gold); color: var(--ink); }
+  .btn-gold:hover { background: var(--gold-deep); }
+  .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.25); color: #fff; }
+  .btn-outline:hover { background: rgba(255,255,255,0.06); }
+  .menu-btn { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 4px; }
+  .menu-btn span { width: 22px; height: 2px; background: var(--ink); position: relative; }
+  .menu-btn span::before, .menu-btn span::after { content: ""; position: absolute; left: 0; width: 22px; height: 2px; background: var(--ink); }
+  .menu-btn span::before { top: -7px; } .menu-btn span::after { top: 7px; }
+
+  /* ---------- Hero with animated marquee headline ---------- */
+  .hero { position: relative; padding: 120px 0 60px; overflow: hidden; }
+  .hero .eyebrow {
+    font-size: 13px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--muted-strong); font-weight: 500;
+    text-align: center;
+  }
+  .marquee-h {
+    margin-top: 56px;
+    overflow: hidden;
+    width: 100%;
+  }
+  .marquee-h .row {
+    white-space: nowrap;
+    display: flex;
+    gap: 0.4em;
+    font-family: var(--serif);
+    font-size: clamp(80px, 11vw, 180px);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    will-change: transform;
+  }
+  .marquee-h .row.r1 { animation: slide-l 36s linear infinite; }
+  .marquee-h .row.r2 { animation: slide-r 36s linear infinite; }
+  @keyframes slide-l { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+  @keyframes slide-r { from { transform: translateX(-50%) } to { transform: translateX(0) } }
+  .marquee-h .sep {
+    width: 0.8em; height: 0.8em;
+    align-self: center;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .marquee-h .sep svg { width: 100%; height: 100%; }
+  .marquee-h .stroke {
+    -webkit-text-stroke: 1.5px rgba(255,255,255,0.5);
+    color: transparent;
+  }
+
+  .hero-sub {
+    margin: 80px auto 0; max-width: 720px;
+    text-align: center;
+    font-size: 19px; line-height: 1.6;
+    color: var(--muted-strong);
+  }
+
+  /* floating sparkles */
+  .sparks { position: absolute; inset: 0; pointer-events: none; }
+  .sparks span {
+    position: absolute;
+    color: var(--gold);
+    opacity: 0;
+    animation: twinkle 6s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+    50% { opacity: 0.9; transform: scale(1) rotate(180deg); }
+  }
+
+  /* ---------- Three pillars ---------- */
+  .pillars { padding: 120px 0; }
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .pillar {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 40px 36px 44px;
+    overflow: hidden;
+    transition: border-color .3s, transform .4s;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  }
+  .pillar::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 18px;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--gold), transparent 50%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity .4s;
+    pointer-events: none;
+  }
+  .pillar:hover { transform: translateY(-6px); border-color: transparent; }
+  .pillar:hover::before { opacity: 1; }
+  .pillar .num {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+  .pillar h3 {
+    font-family: var(--serif);
+    font-size: 44px;
+    line-height: 1;
+    margin-top: 18px;
+    display: flex; align-items: baseline; gap: 14px;
+  }
+  .pillar h3 .ico {
+    width: 28px; height: 28px;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .pillar p {
+    margin-top: 28px;
+    font-size: 15.5px; line-height: 1.7;
+    color: var(--muted-strong);
+  }
+  .pillar .blob {
+    position: absolute;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.18;
+    pointer-events: none;
+    bottom: -80px; right: -80px;
+    transition: opacity .5s, transform .8s;
+  }
+  .pillar:hover .blob { opacity: 0.45; transform: scale(1.15); }
+  .pillar.p1 .blob { background: var(--cosmo); }
+  .pillar.p2 .blob { background: var(--bees); }
+  .pillar.p3 .blob { background: var(--gold); }
+
+  /* ---------- Story strip with rotating word ---------- */
+  .story {
+    background: var(--gold);
+    color: var(--ink);
+    padding: 140px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .story h2 {
+    font-family: var(--serif);
+    font-size: clamp(56px, 6vw, 96px);
+    line-height: 1;
+    letter-spacing: -0.015em;
+  }
+  .rot {
+    display: inline-block;
+    height: 1em;
+    overflow: hidden;
+    vertical-align: bottom;
+    color: var(--ink);
+    position: relative;
+    min-width: 5ch;
+  }
+  .rot ul {
+    list-style: none;
+    animation: roll 9s steps(3) infinite;
+  }
+  .rot li {
+    height: 1em;
+    line-height: 1;
+    font-style: italic;
+  }
+  @keyframes roll {
+    0%, 28% { transform: translateY(0); }
+    33%, 61% { transform: translateY(-1em); }
+    66%, 94% { transform: translateY(-2em); }
+    100% { transform: translateY(-3em); }
+  }
+  .story p {
+    font-size: 18px; line-height: 1.7;
+    color: rgba(14,14,14,0.85);
+    max-width: 480px;
+  }
+  .story p + p { margin-top: 22px; }
+
+  /* big motif */
+  .motif-bg {
+    position: absolute;
+    right: -120px; bottom: -120px;
+    width: 600px; height: 600px;
+    color: var(--ink);
+    opacity: 0.05;
+    animation: spin 80s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- Timeline ---------- */
+  .timeline { padding: 140px 0; border-top: 1px solid var(--line); }
+  .timeline-head { text-align: center; margin-bottom: 96px; }
+  .timeline-head .eyebrow { font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted-strong); }
+  .timeline-head h2 { font-family: var(--serif); font-size: clamp(56px, 5.6vw, 88px); line-height: 1; margin-top: 24px; }
+
+  .tl-track {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .tl-track::before {
+    content: "";
+    position: absolute;
+    top: 50px; left: 30px; right: 30px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), rgba(255,255,255,0.15));
+  }
+  .tl-step {
+    text-align: left;
+    padding-top: 0;
+  }
+  .tl-dot {
+    width: 18px; height: 18px;
+    background: var(--ink);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    margin-bottom: 32px;
+    margin-left: 22px;
+    position: relative;
+    z-index: 2;
+    transition: transform .3s;
+  }
+  .tl-step:hover .tl-dot {
+    transform: scale(1.3);
+    box-shadow: 0 0 0 8px rgba(255,220,130,0.15);
+  }
+  .tl-year { font-family: var(--serif); font-size: 56px; line-height: 1; color: var(--gold); }
+  .tl-step h4 { font-family: var(--serif); font-size: 22px; margin-top: 16px; line-height: 1.2; }
+  .tl-step p { margin-top: 14px; font-size: 14.5px; line-height: 1.65; color: var(--muted-strong); max-width: 260px; }
+
+  /* ---------- Stats running ribbon ---------- */
+  .stats-ribbon {
+    background: var(--ink);
+    border-block: 1px solid var(--line);
+    padding: 28px 0;
+    overflow: hidden;
+  }
+  .stats-ribbon .track {
+    display: flex; gap: 80px; white-space: nowrap;
+    animation: slide-l 40s linear infinite;
+    font-family: var(--serif);
+    font-size: 36px;
+    align-items: center;
+  }
+  .stats-ribbon .num { color: var(--gold); margin-right: 14px; }
+  .stats-ribbon .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); display: inline-block; }
+
+  /* ---------- Flavors carousel ---------- */
+  .flavors { padding: 140px 0; }
+  .flavors h2 {
+    font-family: var(--serif);
+    font-size: clamp(56px, 5.6vw, 88px);
+    line-height: 1;
+    text-align: center;
+  }
+  .flavors .lead { text-align: center; color: var(--muted-strong); margin: 24px auto 80px; max-width: 540px; font-size: 17px; line-height: 1.6; }
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .sw {
+    aspect-ratio: 3 / 4;
+    border-radius: 18px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .5s cubic-bezier(.22,1,.36,1);
+  }
+  .sw:hover { transform: translateY(-10px); }
+  .sw .label {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 28px;
+    color: #fff;
+    z-index: 2;
+  }
+  .sw .label .nm { font-family: var(--serif); font-size: 32px; line-height: 1; }
+  .sw .label .sub { display: block; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.85; margin-top: 8px; }
+  .sw::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55) 100%);
+  }
+  .sw .glow {
+    position: absolute;
+    inset: -50%;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4), transparent 60%);
+    opacity: 0;
+    transition: opacity .6s;
+  }
+  .sw:hover .glow { opacity: 0.4; }
+  .sw.cosmo { background: linear-gradient(160deg, #E5ACC4 0%, #C9748F 60%, #871D52 100%); }
+  .sw.bees { background: linear-gradient(160deg, #E4CAE5 0%, #C79FC1 60%, #742587 100%); }
+  .sw.rasp { background: linear-gradient(160deg, #F4CAC1 0%, #EA9C83 60%, #B7463D 100%); }
+  .sw.espr { background: linear-gradient(160deg, #EACEA7 0%, #D1A76F 60%, #6D401D 100%); }
+
+  .sw .frame {
+    position: absolute;
+    top: 28px; left: 28px; right: 28px;
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 8px;
+    padding: 16px 12px 14px;
+    text-align: center;
+  }
+  .sw .frame .tag { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(14,14,14,0.7); }
+  .sw .frame .nmlg { font-family: var(--serif); font-size: 18px; line-height: 1; color: var(--ink); margin-top: 6px; }
+  .sw .frame .rule { width: 30px; height: 1px; background: rgba(14,14,14,0.4); margin: 8px auto; }
+  .sw .frame .vol { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(14,14,14,0.6); }
+
+  /* ---------- CTA ---------- */
+  .cta {
+    padding: 160px 0 100px;
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+  .cta h2 {
+    font-family: var(--serif);
+    font-size: clamp(56px, 6.4vw, 104px);
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .cta .row { margin-top: 48px; display: flex; gap: 16px; justify-content: center; }
+  .cta .row .btn { height: 60px; padding: 0 36px; font-size: 16px; }
+
+  /* ---------- Reveal-on-scroll ---------- */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ---------- Footer ---------- */
+  .strip { background: var(--gold); color: var(--ink); padding: 28px 0; overflow: hidden; }
+  .strip-track { display: flex; gap: 64px; white-space: nowrap; animation: slide-l 30s linear infinite; font-family: var(--serif); font-size: 32px; }
+  .strip-track .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ink); display: inline-block; }
+
+  .footer { padding: 80px 0 40px; border-top: 1px solid var(--line); }
+  .footer-top { display: grid; grid-template-columns: 1.1fr 1fr 1fr 1fr; gap: 64px; align-items: start; }
+  .footer-brand { display: flex; align-items: center; gap: 14px; }
+  .footer-brand .brand-mark { width: 56px; height: 56px; }
+  .footer-brand .brand-mark svg { width: 32px; height: 32px; }
+  .footer-brand .brand-name { font-family: var(--display); letter-spacing: 0.04em; font-size: 22px; }
+  .footer-socials { margin-top: 28px; display: flex; gap: 16px; }
+  .footer-socials a { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; transition: background .15s, border-color .15s; color: #fff; }
+  .footer-socials a:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+  .footer-socials svg { width: 18px; height: 18px; }
+  .col h4 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 18px; margin-bottom: 22px; color: var(--muted-strong); }
+  .col ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .col a { font-size: 16px; transition: color .15s; }
+  .col a:hover { color: var(--gold); }
+  .footer-bottom { margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--muted); }
+  .footer-bottom .legal { display: flex; gap: 28px; }
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="brand-name">Bootleggers</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="events.html">Events</a>
+      <a href="about.html" class="active">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="#" class="btn btn-ink">Shop now</a>
+    <button class="menu-btn" aria-label="Open menu"><span></span></button>
+  </div>
+</header>
+
+<!-- ============== HERO ============== -->
+<section class="hero">
+  <div class="sparks" aria-hidden="true">
+    <span style="top: 18%; left: 8%; font-size: 22px; animation-delay: 0s;">
+      <svg width="22" height="22" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg>
+    </span>
+    <span style="top: 30%; right: 10%; font-size: 14px; animation-delay: 1.2s;">
+      <svg width="14" height="14" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg>
+    </span>
+    <span style="top: 60%; left: 5%; font-size: 18px; animation-delay: 2.6s;">
+      <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg>
+    </span>
+    <span style="top: 70%; right: 16%; font-size: 26px; animation-delay: 3.4s;">
+      <svg width="26" height="26" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg>
+    </span>
+  </div>
+  <div class="wrap">
+    <div class="eyebrow">About Bootleggers</div>
+  </div>
+
+  <div class="marquee-h">
+    <div class="row r1">
+      <span>Crafted&nbsp;drinks.</span>
+      <span class="sep"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg></span>
+      <span class="stroke">Crafted&nbsp;drinks.</span>
+      <span class="sep"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg></span>
+      <span>Crafted&nbsp;drinks.</span>
+      <span class="sep"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg></span>
+      <span class="stroke">Crafted&nbsp;drinks.</span>
+      <span class="sep"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg></span>
+    </div>
+  </div>
+  <div class="marquee-h" style="margin-top: 8px;">
+    <div class="row r2">
+      <span class="stroke">Unforgettable&nbsp;nights.</span>
+      <span class="sep"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg></span>
+      <span>Unforgettable&nbsp;nights.</span>
+      <span class="sep"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg></span>
+      <span class="stroke">Unforgettable&nbsp;nights.</span>
+      <span class="sep"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg></span>
+      <span>Unforgettable&nbsp;nights.</span>
+      <span class="sep"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg></span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <p class="hero-sub reveal">Premium, well-made drinks for the modern way we gather&mdash;built with intention, poured with care, and shared without compromise.</p>
+  </div>
+</section>
+
+<!-- ============== THREE PILLARS ============== -->
+<section class="pillars">
+  <div class="wrap">
+    <div class="pillars-grid">
+      <article class="pillar p1 reveal">
+        <span class="num">01</span>
+        <h3>
+          <span class="ico">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12c0-3 2-5 5-5s5 2 5 5c0 4-5 5-5 9M14 25v.5"/><path d="M22 8c2 1 3 3 3 5"/></svg>
+          </span>
+          Our mission
+        </h3>
+        <p>At Bootleggers, our mission is to redefine how people experience cocktails. We bring bar-quality drinks beyond the bar&mdash;real ingredients, thoughtful craftsmanship, modern convenience. Whether it's a can in your hand or a full-scale program behind the bar, we exist to make premium, well-made drinks accessible anywhere, without compromising on quality or experience.</p>
+        <span class="blob"></span>
+      </article>
+
+      <article class="pillar p2 reveal">
+        <span class="num">02</span>
+        <h3>
+          <span class="ico">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="16" cy="11" r="5"/><path d="M6 27c1-5 5-8 10-8s9 3 10 8"/></svg>
+          </span>
+          Our values
+        </h3>
+        <p>Great drinks start with integrity&mdash;real ingredients, honest products, consistency at every level. We value creativity as much as precision, blending the art of cocktail culture with the discipline of production. Above all, we believe in connection: every product we create is designed to bring people together, elevate moments, and leave a lasting impression.</p>
+        <span class="blob"></span>
+      </article>
+
+      <article class="pillar p3 reveal">
+        <span class="num">03</span>
+        <h3>
+          <span class="ico">
+            <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z"/></svg>
+          </span>
+          Our approach
+        </h3>
+        <p>Our approach is rooted in bridging craft and scale. We develop cocktails with the mindset of a bartender and the execution of a production system. Each product is designed to perform seamlessly&mdash;in a high-volume venue, a retail aisle, or a private experience. From ready-to-pour hospitality to finished ready-to-drink formats, we focus on simplicity, consistency, and flexibility, so our partners deliver exceptional drinks with ease.</p>
+        <span class="blob"></span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============== STORY (gold strip with rotating word) ============== -->
+<section class="story">
+  <div class="wrap">
+    <div class="story-grid reveal">
+      <div>
+        <h2>
+          A modern lineup, built for
+          <br/>
+          <span class="rot">
+            <ul>
+              <li>gatherings.</li>
+              <li>nightlife.</li>
+              <li>moments.</li>
+              <li>gatherings.</li>
+            </ul>
+          </span>
+        </h2>
+      </div>
+      <div>
+        <p>Bootleggers was born from a simple frustration: the gap between what bars can pour and what people drink at home. So we started bottling the bar&mdash;cocktails crafted by bartenders, made with real spirits, and packaged for the way nights actually unfold.</p>
+        <p>From the gin-and-honey warmth of <em>Bee's Knees</em> to the cold pull of <em>Espresso Martini</em>, every recipe is built to be opened among friends, then opened again.</p>
+      </div>
+    </div>
+  </div>
+  <svg class="motif-bg" viewBox="0 0 200 200" fill="currentColor" aria-hidden="true">
+    <g>
+      <path d="M100 10 C105 50 150 95 190 100 C150 105 105 150 100 190 C95 150 50 105 10 100 C50 95 95 50 100 10 Z"/>
+    </g>
+  </svg>
+</section>
+
+<!-- ============== TIMELINE ============== -->
+<section class="timeline">
+  <div class="wrap">
+    <div class="timeline-head reveal">
+      <span class="eyebrow">A short history</span>
+      <h2>From garage to glass</h2>
+    </div>
+    <div class="tl-track">
+      <div class="tl-step reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-year">'21</div>
+        <h4>An idea, in a kitchen</h4>
+        <p>Two friends, a stockpile of mason jars, and a stubborn belief that good cocktails deserve to travel.</p>
+      </div>
+      <div class="tl-step reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-year">'23</div>
+        <h4>The first pour</h4>
+        <p>Bee's Knees lands at a Brooklyn pop-up. Two-hundred cans, gone in an hour.</p>
+      </div>
+      <div class="tl-step reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-year">'25</div>
+        <h4>The lineup grows</h4>
+        <p>Espresso Martini, Cosmo, and Raspberry Theory complete the family. Bars and stockists nationwide.</p>
+      </div>
+      <div class="tl-step reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-year">'26</div>
+        <h4>Coming next</h4>
+        <p>New rooftops. New flavors. The same insistence on craft.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== STATS RIBBON ============== -->
+<div class="stats-ribbon" aria-hidden="true">
+  <div class="track">
+    <span><span class="num">52K+</span>guests</span><span class="dot"></span>
+    <span><span class="num">2M+</span>drinks served</span><span class="dot"></span>
+    <span><span class="num">120</span>events</span><span class="dot"></span>
+    <span><span class="num">04</span>signature cans</span><span class="dot"></span>
+    <span><span class="num">100%</span>vegan &middot; gluten free</span><span class="dot"></span>
+    <span><span class="num">52K+</span>guests</span><span class="dot"></span>
+    <span><span class="num">2M+</span>drinks served</span><span class="dot"></span>
+    <span><span class="num">120</span>events</span><span class="dot"></span>
+    <span><span class="num">04</span>signature cans</span><span class="dot"></span>
+    <span><span class="num">100%</span>vegan &middot; gluten free</span><span class="dot"></span>
+  </div>
+</div>
+
+<!-- ============== FLAVORS ============== -->
+<section class="flavors">
+  <div class="wrap">
+    <h2 class="reveal">Four flavors. One craft.</h2>
+    <p class="lead reveal">Each pour is rooted in a story&mdash;and a palette of its own.</p>
+    <div class="swatches">
+      <div class="sw cosmo reveal">
+        <span class="glow"></span>
+        <div class="frame">
+          <div class="tag">Bootleggers</div>
+          <div class="nmlg">Cosmo</div>
+          <div class="rule"></div>
+          <div class="vol">Premium &middot; 5.9%</div>
+        </div>
+        <div class="label"><div class="nm">Cosmo</div><span class="sub">Vodka &middot; Cranberry &middot; Lime</span></div>
+      </div>
+      <div class="sw bees reveal">
+        <span class="glow"></span>
+        <div class="frame">
+          <div class="tag">Bootleggers</div>
+          <div class="nmlg">Bee's Knees</div>
+          <div class="rule"></div>
+          <div class="vol">Premium &middot; 5.6%</div>
+        </div>
+        <div class="label"><div class="nm">Bee's Knees</div><span class="sub">Gin &middot; Lemon &middot; Lavender</span></div>
+      </div>
+      <div class="sw rasp reveal">
+        <span class="glow"></span>
+        <div class="frame">
+          <div class="tag">Bootleggers</div>
+          <div class="nmlg">Raspberry</div>
+          <div class="rule"></div>
+          <div class="vol">Elixir &middot; Non-alc.</div>
+        </div>
+        <div class="label"><div class="nm">Raspberry Theory</div><span class="sub">Raspberry &middot; Pineapple &middot; Lime</span></div>
+      </div>
+      <div class="sw espr reveal">
+        <span class="glow"></span>
+        <div class="frame">
+          <div class="tag">Bootleggers</div>
+          <div class="nmlg">Espresso</div>
+          <div class="rule"></div>
+          <div class="vol">Premium &middot; 5.9%</div>
+        </div>
+        <div class="label"><div class="nm">Espresso Martini</div><span class="sub">Vodka &middot; Italian Espresso</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CTA ============== -->
+<section class="cta">
+  <div class="wrap">
+    <h2 class="reveal">Pour with us. <em style="font-style: italic; opacity: 0.5;">Anywhere.</em></h2>
+    <div class="row reveal">
+      <a href="products.html" class="btn btn-gold">Explore the lineup</a>
+      <a href="events.html" class="btn btn-outline">See upcoming events</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== STRIP ============== -->
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <span style="display:inline-flex; align-items:center; gap:64px;">CRAFTED DRINKS<span class="dot"></span>UNFORGETTABLE NIGHTS<span class="dot"></span>BOLD &middot; HONEST &middot; UNFORGETTABLE<span class="dot"></span></span>
+    <span style="display:inline-flex; align-items:center; gap:64px;">CRAFTED DRINKS<span class="dot"></span>UNFORGETTABLE NIGHTS<span class="dot"></span>BOLD &middot; HONEST &middot; UNFORGETTABLE<span class="dot"></span></span>
+  </div>
+</div>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <a class="footer-brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="brand-name">BOOTLEGGERS</span>
+        </a>
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5c0-1.1.4-2 2-2h2V2h-3.5C10.6 2 9 4 9 6.7V10H6v4h3v8h4z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 3h3l-7 8 8 10h-6l-5-6-5 6H3l7-9-8-9h6l4 5 6-5z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v4H4zM4 10h4v10H4zM10 10h4v1.5c.7-1 2-1.8 3.5-1.8 3 0 3.5 2 3.5 4.5V20h-4v-5c0-1-.3-2-1.5-2S14 14 14 15v5h-4z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 7c-.2-1.5-1-2.3-2.5-2.5C17 4 12 4 12 4s-5 0-7.5.5C3 4.7 2.2 5.5 2 7c-.5 2.5-.5 5 0 7.5.2 1.5 1 2.3 2.5 2.5C7 17.5 12 17.5 12 17.5s5 0 7.5-.5c1.5-.2 2.3-1 2.5-2.5.5-2.5.5-5 0-7.5zM10 14V8l5 3-5 3z"/></svg></a>
+        </div>
+      </div>
+      <div class="col"><h4>Explore</h4><ul><li><a href="index.html">Home</a></li><li><a href="products.html">Products</a></li><li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="#">Contact</a></li></ul></div>
+      <div class="col"><h4>Drinks</h4><ul><li><a href="#">Cocktails</a></li><li><a href="#">Craft</a></li><li><a href="#">Seasonal</a></li><li><a href="#">Signature</a></li><li><a href="#">Gallery</a></li></ul></div>
+      <div class="col"><h4>Events</h4><ul><li><a href="#">Upcoming</a></li><li><a href="#">Past</a></li><li><a href="#">Tickets</a></li><li><a href="#">RSVP</a></li><li><a href="#">Info</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Bootleggers&reg;. Drink responsibly.</span>
+      <div class="legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // duplicate marquee row content so the loop seam is invisible
+  document.querySelectorAll('.marquee-h .row').forEach(r => {
+    r.innerHTML = r.innerHTML + r.innerHTML;
+  });
+  document.querySelectorAll('.strip-track').forEach(r => {});
+
+  // intersection-based reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
