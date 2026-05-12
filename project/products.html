@@ -283,6 +283,44 @@
   .footer-bottom { margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--muted); }
   .footer-bottom .legal { display: flex; gap: 28px; }
   .footer-bottom a:hover { color: #fff; }
+
+  /* ===== MOBILE MENU ===== */
+  .mob-menu { display: none; position: fixed; top: 73px; left: 0; right: 0; bottom: 0; background: var(--gold); z-index: 48; padding: 32px 24px 48px; flex-direction: column; overflow-y: auto; }
+  .mob-menu.open { display: flex; }
+  .mob-menu a { font-family: var(--serif); font-size: 38px; line-height: 1; padding: 18px 0; border-bottom: 1px solid rgba(14,14,14,0.1); color: var(--ink); display: block; }
+  .mob-menu .mob-cta { margin-top: 32px; background: var(--ink); color: #fff; height: 56px; border-radius: 4px; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; font-family: var(--sans); border-bottom: none; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .wrap { padding: 0 20px; }
+    .nav-inner { grid-template-columns: 1fr auto; padding: 16px 20px; gap: 0; }
+    .nav-links, .nav-inner > .btn { display: none; }
+
+    .hero { padding: 36px 0 0; min-height: unset; }
+    .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+    .hero h1 { font-size: clamp(44px, 13vw, 72px); }
+    .hero-sub { font-size: 16px; }
+    .hero-cta-row { flex-wrap: wrap; gap: 12px; }
+    .hero-slider { height: 380px; }
+
+    .hero-meta-row { grid-template-columns: 1fr 1fr; gap: 24px; padding: 28px 0 36px; margin-top: 28px; }
+    .meta-stat .num { font-size: 40px; }
+
+    .grid-3 { grid-template-columns: 1fr 1fr; gap: 28px 16px; }
+    .featured-head { margin-bottom: 56px; }
+    .featured-head .h-xl { font-size: clamp(44px, 10vw, 72px); }
+
+    .pour { flex-direction: column; }
+
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px 32px; }
+    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    .footer-bottom .legal { flex-wrap: wrap; justify-content: center; gap: 16px; }
+  }
+  @media (max-width: 480px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .hero-meta-row { grid-template-columns: 1fr 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -305,6 +343,14 @@
     <button class="menu-btn" aria-label="Open menu"><span></span></button>
   </div>
 </header>
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html">Home</a>
+  <a href="products.html">Products</a>
+  <a href="events.html">Events</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="#" class="mob-cta">Shop now</a>
+</div>
 
 <!-- ============== HERO ============== -->
 <section class="hero">
@@ -520,6 +566,11 @@
     dots.forEach((d, i) => d.addEventListener('click', () => { clearInterval(timer); goTo(i); timer = setInterval(() => goTo(cur + 1), 3500); }));
     timer = setInterval(() => goTo(cur + 1), 3500);
   })();
+  // Mobile menu
+  const menuBtn = document.querySelector('.menu-btn');
+  const mobMenu = document.getElementById('mobMenu');
+  menuBtn.addEventListener('click', () => mobMenu.classList.toggle('open'));
+  mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobMenu.classList.remove('open')));
 </script>
 
 </body>

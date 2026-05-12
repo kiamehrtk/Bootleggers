@@ -233,6 +233,36 @@
   .footer-bottom { margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--muted); }
   .footer-bottom .legal { display: flex; gap: 28px; }
   .footer-bottom a:hover { color: #fff; }
+
+  /* ===== MOBILE MENU ===== */
+  .mob-menu { display: none; position: fixed; top: 73px; left: 0; right: 0; bottom: 0; background: var(--gold); color: var(--ink); z-index: 48; padding: 32px 24px 48px; flex-direction: column; overflow-y: auto; }
+  .mob-menu.open { display: flex; }
+  .mob-menu a { font-family: var(--serif); font-size: 38px; line-height: 1; padding: 18px 0; border-bottom: 1px solid rgba(14,14,14,0.1); color: var(--ink); display: block; }
+  .mob-menu .mob-cta { margin-top: 32px; background: var(--ink); color: #fff; height: 56px; border-radius: 4px; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; font-family: var(--sans); border-bottom: none; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .wrap { padding: 0 20px; }
+    .nav-inner { grid-template-columns: 1fr auto; padding: 16px 20px; gap: 0; }
+    .nav-links, .nav-inner > .btn { display: none; }
+
+    .hero { padding: 60px 0 40px; }
+    .hero h1 { font-size: clamp(52px, 13vw, 96px); }
+    .hero .lead { font-size: 16px; }
+
+    .main { padding: 32px 0 80px; }
+    .form-card { padding: 36px 24px 32px; border-radius: 16px; }
+    .row2 { grid-template-columns: 1fr; gap: 22px; }
+    .submit-row { flex-direction: column; align-items: stretch; gap: 16px; }
+    .submit { width: 100%; justify-content: center; }
+
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px 32px; }
+    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    .footer-bottom .legal { flex-wrap: wrap; justify-content: center; gap: 16px; }
+  }
+  @media (max-width: 480px) {
+    .footer-top { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -254,6 +284,14 @@
     <button class="menu-btn" aria-label="Open menu"><span></span></button>
   </div>
 </header>
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html">Home</a>
+  <a href="products.html">Products</a>
+  <a href="events.html">Events</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="#" class="mob-cta">Shop now</a>
+</div>
 
 <section class="hero">
   <div class="sparks" aria-hidden="true">
@@ -382,6 +420,11 @@
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   }), { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  // Mobile menu
+  const menuBtn = document.querySelector('.menu-btn');
+  const mobMenu = document.getElementById('mobMenu');
+  menuBtn.addEventListener('click', () => mobMenu.classList.toggle('open'));
+  mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobMenu.classList.remove('open')));
 
   // topic chips
   document.querySelectorAll('.topic').forEach(t => t.addEventListener('click', () => {

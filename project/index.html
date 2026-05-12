@@ -452,6 +452,58 @@
   @keyframes marq { from { transform: translateX(0) } to { transform: translateX(-50%) } }
   .reveal { opacity: 0; transform: translateY(30px); transition: opacity .9s ease, transform .9s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ===== MOBILE MENU ===== */
+  .mob-menu {
+    display: none; position: fixed;
+    top: 73px; left: 0; right: 0; bottom: 0;
+    background: var(--gold); z-index: 48;
+    padding: 32px 24px 48px;
+    flex-direction: column; overflow-y: auto;
+  }
+  .mob-menu.open { display: flex; }
+  .mob-menu a { font-family: var(--serif); font-size: 38px; line-height: 1; padding: 18px 0; border-bottom: 1px solid rgba(14,14,14,0.1); color: var(--ink); display: block; }
+  .mob-menu .mob-cta { margin-top: 32px; background: var(--ink); color: #fff; height: 56px; border-radius: 4px; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; font-family: var(--sans); border-bottom: none; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .wrap { padding: 0 20px; }
+    .nav-inner { grid-template-columns: 1fr auto; padding: 16px 20px; gap: 0; }
+    .nav-links, .nav-inner > .btn { display: none; }
+    .menu-btn { display: grid; }
+
+    .hero { padding: 36px 0 56px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+    .hero h1 { font-size: clamp(44px, 13vw, 72px); }
+    .hero-sub { font-size: 16px; }
+    .hero-cta-row { flex-wrap: wrap; gap: 12px; }
+    .hero-can-photo { aspect-ratio: 4/3; }
+    .hero-meta { flex-wrap: wrap; gap: 12px 24px; }
+
+    .section { padding: 72px 0; }
+
+    .stats-head { grid-template-columns: 1fr; gap: 40px; margin-bottom: 56px; }
+    .stats-row { flex-wrap: wrap; gap: 32px 48px; }
+    .stat-num { font-size: 52px; }
+
+    .testimonial { grid-template-columns: 1fr; gap: 36px; }
+    .quote-body { font-size: 24px; }
+    .testi-nav { margin-top: 32px; }
+
+    .lineup { grid-template-columns: 1fr; gap: 40px; }
+    .lineup-copy { padding-right: 0; }
+
+    .products { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .product-name-text { font-size: 17px; }
+
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px 32px; }
+    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    .footer-bottom .legal { flex-wrap: wrap; justify-content: center; gap: 16px; }
+  }
+  @media (max-width: 480px) {
+    .products { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -474,6 +526,14 @@
     <button class="menu-btn" aria-label="Open menu"><span></span></button>
   </div>
 </header>
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html">Home</a>
+  <a href="products.html">Products</a>
+  <a href="events.html">Events</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="#" class="mob-cta">Shop now</a>
+</div>
 
 <!-- ============== HERO ============== -->
 <section class="hero">
@@ -730,6 +790,11 @@
   document.querySelectorAll('.hero h1, .hero-sub, .hero-cta-row, .hero-tagline, .stats-head, .testimonial, .lineup, .products, .events-head, .events-grid, .newsletter h2, .newsletter form, .footer-top').forEach(el => el.classList.add('reveal'));
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  // Mobile menu
+  const menuBtn = document.querySelector('.menu-btn');
+  const mobMenu = document.getElementById('mobMenu');
+  menuBtn.addEventListener('click', () => mobMenu.classList.toggle('open'));
+  mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobMenu.classList.remove('open')));
 </script>
 </body>
 </html>
