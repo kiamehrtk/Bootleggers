@@ -231,8 +231,8 @@
   /* ---------- Cocktail lineup ---------- */
   .lineup {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 88px;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 56px;
     align-items: center;
   }
   .lineup-copy { padding-right: 24px; }
@@ -247,11 +247,13 @@
   .lineup-copy .btn { margin-top: 40px; height: 60px; padding: 0 36px; font-size: 16px; }
 
   .lineup-illo {
-    aspect-ratio: 4 / 5;
     background: var(--gold);
     border-radius: 14px;
     overflow: hidden;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .lineup-illo image-slot { width: 100%; height: 100%; }
   .lineup-bicon {
@@ -569,7 +571,7 @@
         <a href="#" class="btn btn-gold">See more</a>
       </div>
       <div class="lineup-illo">
-        <img src="uploads/cans-tray.png" alt="Bootleggers four cocktail cans on a serving tray" style="width:100%;height:100%;object-fit:cover;display:block;" />
+        <img src="uploads/cans-tray.png" alt="Bootleggers four cocktail cans on a serving tray" style="width:100%;height:auto;object-fit:contain;display:block;" />
       </div>
     </div>
 

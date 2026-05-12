@@ -97,39 +97,46 @@
   }
   .hero-cta-row .btn { height: 60px; padding: 0 36px; font-size: 16px; }
 
-  /* Overlapping photo collage */
-  .hero-photos {
+  /* Hero slider */
+  .hero-slider {
     position: relative;
-    height: 660px;
-  }
-  .hero-photo {
-    position: absolute;
-    border-radius: 12px;
+    height: 620px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 30px 50px -20px rgba(14,14,14,0.35);
+    box-shadow: 0 30px 60px -20px rgba(14,14,14,0.4);
   }
-  .hero-photo image-slot { width: 100%; height: 100%; }
-  .hero-photo.tall {
-    top: 60px; right: 0;
-    width: 460px; height: 580px;
-    z-index: 1;
+  .hero-slider-track {
+    display: flex;
+    height: 100%;
+    transition: transform .7s cubic-bezier(.4,0,.2,1);
+    will-change: transform;
   }
-  .hero-photo.short {
-    left: 0; bottom: 40px;
-    width: 380px; height: 380px;
-    z-index: 2;
+  .hero-slide {
+    flex: 0 0 100%;
+    height: 100%;
+    overflow: hidden;
   }
-  .hero-spark {
+  .hero-slide img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .hero-slider-dots {
     position: absolute;
-    right: -28px; top: 320px;
-    width: 56px; height: 56px;
-    background: var(--ink);
-    color: var(--gold);
-    border-radius: 12px;
-    display: grid; place-items: center;
-    z-index: 3;
+    bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 8px; z-index: 4;
   }
-  .hero-spark svg { width: 32px; height: 32px; }
+  .hero-slider-dots button {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.45);
+    transition: background .2s, transform .2s;
+    padding: 0;
+  }
+  .hero-slider-dots button.active {
+    background: #fff;
+    transform: scale(1.4);
+  }
 
   .hero-meta-row {
     display: grid;
@@ -312,15 +319,18 @@
           <a href="#" style="text-decoration: underline; text-underline-offset: 6px; font-weight: 500;">Find a stockist &rarr;</a>
         </div>
       </div>
-      <div class="hero-photos">
-        <div class="hero-photo tall">
-          <img src="uploads/IMG_1268 (2).PNG" alt="Espresso Martini" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      <div class="hero-slider" id="heroSlider">
+        <div class="hero-slider-track" id="heroTrack">
+          <div class="hero-slide"><img src="uploads/IMG_1268 (2).PNG" alt="Espresso Martini" /></div>
+          <div class="hero-slide"><img src="uploads/IMG_1271 (1).PNG" alt="Cosmo" /></div>
+          <div class="hero-slide"><img src="uploads/IMG_1273 (2).PNG" alt="Raspberry Theory" /></div>
+          <div class="hero-slide"><img src="uploads/IMG_1275 (1).PNG" alt="Bee's Knees" /></div>
         </div>
-        <div class="hero-photo short">
-          <img src="uploads/IMG_1271 (1).PNG" alt="Cosmo" style="width:100%;height:100%;object-fit:cover;display:block;" />
-        </div>
-        <div class="hero-spark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" fill="none"><path d="M16 2 C17.5 9 23 14.5 30 16 C23 17.5 17.5 23 16 30 C14.5 23 9 17.5 2 16 C9 14.5 14.5 9 16 2 Z" fill="currentColor"/></svg>
+        <div class="hero-slider-dots" id="heroDots">
+          <button class="active" aria-label="Slide 1"></button>
+          <button aria-label="Slide 2"></button>
+          <button aria-label="Slide 3"></button>
+          <button aria-label="Slide 4"></button>
         </div>
       </div>
     </div>
@@ -492,14 +502,24 @@
 </footer>
 
 <script>
-  document.querySelectorAll('.hero h1, .hero-sub, .hero-cta-row, .hero-photos, .hero-meta-row, .featured-head, .filters, .product-card, .pour').forEach(el => el.classList.add('reveal'));
+  document.querySelectorAll('.hero h1, .hero-sub, .hero-cta-row, .hero-slider, .hero-meta-row, .featured-head, .filters, .product-card, .pour').forEach(el => el.classList.add('reveal'));
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  // simple chip toggle
-  document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
-    document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
-    c.classList.add('active');
-  }));
+
+  // Hero auto-slider
+  (function() {
+    const track = document.getElementById('heroTrack');
+    const dots = document.querySelectorAll('#heroDots button');
+    const total = dots.length;
+    let cur = 0, timer;
+    function goTo(i) {
+      cur = (i + total) % total;
+      track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+      dots.forEach((d, idx) => d.classList.toggle('active', idx === cur));
+    }
+    dots.forEach((d, i) => d.addEventListener('click', () => { clearInterval(timer); goTo(i); timer = setInterval(() => goTo(cur + 1), 3500); }));
+    timer = setInterval(() => goTo(cur + 1), 3500);
+  })();
 </script>
 
 </body>
