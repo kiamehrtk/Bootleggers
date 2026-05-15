@@ -115,10 +115,7 @@
   .gallery-head { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 64px; }
   .gallery-head h2 { font-family: var(--serif); font-size: clamp(44px, 4.6vw, 72px); line-height: 1; }
   .gallery-head .lead { color: var(--muted-strong); max-width: 480px; font-size: 16px; line-height: 1.6; margin-top: 16px; }
-  .gallery-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
-  .tab { height: 38px; padding: 0 18px; border: 1px solid var(--line); border-radius: 999px; color: #fff; font-size: 13px; letter-spacing: 0.04em; white-space: nowrap; transition: background .15s, border-color .15s, color .15s; }
-  .tab.active { background: var(--gold); color: var(--ink); border-color: var(--gold); }
-  .tab:hover:not(.active) { border-color: rgba(255,255,255,0.4); }
+
 
   .grid {
     display: grid;
@@ -177,8 +174,6 @@
   .t-13 { grid-column: span 4; grid-row: span 2; }
   .t-14 { grid-column: span 12; grid-row: span 2; }
 
-  .gallery-foot { margin-top: 56px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-  .gallery-foot .count { color: var(--muted); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; }
 
   /* strip */
   .strip { background: var(--gold); color: var(--ink); padding: 28px 0; overflow: hidden; }
@@ -380,13 +375,6 @@
         <h2 class="h-serif" style="margin-top:18px;">Moments from the floor</h2>
         <p class="lead">A living archive of nights past&mdash;rooftop pours, gallery openings, and after-hours sets. Drop in your photos to bring it to life.</p>
       </div>
-      <div class="gallery-tabs">
-        <button class="tab active">All</button>
-        <button class="tab">Rooftop</button>
-        <button class="tab">Pop-ups</button>
-        <button class="tab">Tastings</button>
-        <button class="tab">2025</button>
-      </div>
     </div>
 
     <div class="grid">
@@ -444,10 +432,6 @@
       </div>
     </div>
 
-    <div class="gallery-foot">
-      <span class="count">Showing 13 of 13</span>
-      <a href="#" class="btn btn-outline">Load more</a>
-    </div>
   </div>
 </section>
 
@@ -494,7 +478,7 @@
 </footer>
 
 <script>
-  document.querySelectorAll('.page-hero h1, .page-hero p, .page-hero .page-eyebrow, .upcoming-head, .car-viewport, .gallery-head, .grid > .tile, .gallery-foot').forEach(el => el.classList.add('reveal'));
+  document.querySelectorAll('.page-hero h1, .page-hero p, .page-hero .page-eyebrow, .upcoming-head, .car-viewport, .gallery-head, .grid > .tile').forEach(el => el.classList.add('reveal'));
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   const track = document.getElementById('carTrack');
@@ -510,11 +494,6 @@
   document.getElementById('nextBtn').addEventListener('click', () => go(idx + 1));
   dots.forEach(d => d.addEventListener('click', () => go(+d.dataset.i)));
 
-  // gallery tabs
-  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-    t.classList.add('active');
-  }));
   // Mobile menu
   const menuBtn = document.querySelector('.menu-btn');
   const mobMenu = document.getElementById('mobMenu');
