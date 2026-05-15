@@ -133,12 +133,14 @@
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 40px 80px -20px rgba(14,14,14,0.3);
-    aspect-ratio: 3 / 4;
-    background: linear-gradient(160deg, #E4CAE5 0%, #C9748F 60%, #871D52 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .hero-can-photo img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
+    width: 100%; height: auto;
+    display: block;
+    object-fit: contain;
   }
   .hero-meta {
     display: flex; gap: 28px; margin-top: 40px;
@@ -477,7 +479,7 @@
     .hero h1 { font-size: clamp(44px, 13vw, 72px); }
     .hero-sub { font-size: 16px; }
     .hero-cta-row { flex-wrap: wrap; gap: 12px; }
-    .hero-can-photo { aspect-ratio: 4/3; }
+    .hero-can-photo { width: 100%; }
     .hero-meta { flex-wrap: wrap; gap: 12px 24px; }
 
     .section { padding: 72px 0; }
