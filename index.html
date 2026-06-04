@@ -506,6 +506,15 @@
     .products { grid-template-columns: 1fr; }
     .footer-top { grid-template-columns: 1fr; }
   }
+  @media (max-width: 360px) {
+    .wrap { padding: 0 12px; }
+    .nav-inner { padding: 14px 12px; }
+    .hero-cta-row { flex-direction: column; }
+    .hero-cta-row .btn { width: 100%; justify-content: center; }
+    .footer-top { gap: 24px; }
+    .stats-row { gap: 32px; flex-wrap: wrap; }
+    .stat-num { font-size: 56px; }
+  }
 </style>
 </head>
 <body>

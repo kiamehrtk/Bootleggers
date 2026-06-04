@@ -445,6 +445,15 @@
     .swatches { grid-template-columns: 1fr; }
     .footer-top { grid-template-columns: 1fr; }
   }
+  @media (max-width: 360px) {
+    .wrap { padding: 0 12px; }
+    .nav-inner { padding: 14px 12px; }
+    .marquee-h .row { font-size: clamp(36px, 10vw, 64px); }
+    .tl-track { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .swatches { grid-template-columns: 1fr; }
+    .cta .row { gap: 12px; }
+    .footer-top { gap: 24px; }
+  }
 </style>
 </head>
 <body>

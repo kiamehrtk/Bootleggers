@@ -239,6 +239,16 @@
     .grid { grid-template-columns: 1fr; }
     .footer-top { grid-template-columns: 1fr; }
   }
+  @media (max-width: 360px) {
+    .wrap { padding: 0 12px; }
+    .nav-inner { padding: 14px 12px; }
+    .car-nav button { width: 44px; height: 44px; }
+    .slide-body { padding: 20px 16px 24px; }
+    .slide-title { font-size: clamp(32px, 10vw, 48px); }
+    .slide-badge { padding: 6px 12px; font-size: 11px; }
+    .grid { grid-template-columns: 1fr; }
+    .footer-top { gap: 24px; }
+  }
 </style>
 </head>
 <body>
